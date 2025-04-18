@@ -11,11 +11,12 @@ var logger = require('morgan');
 var app = express();
 const PORT = process.env.PORT || 7000;
 app.use(bodyParser.json());
-
+app.use(logger("dev"));
 
 app.post("/webhook/paystack", async (req, res) => {
   console.log("Received webhook from Paystack:", req.body);
-  res.sendStatus(200);
+  res.status(200).json({ status: "healthy webhook" });
+  // res.sendStatus(200);
   // const event = req.body.event;
   // const data = req.body.data;
 
@@ -68,7 +69,7 @@ app.post("/webhook/paystack", async (req, res) => {
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
 
- app.use(logger('dev'));
+ 
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
