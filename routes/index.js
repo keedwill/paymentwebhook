@@ -7,6 +7,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
+
+  console.log('hello index ppage')
   res.render('index', { title: 'Express' });
 });
 
@@ -18,6 +21,7 @@ router.get("/contact", function (req, res, next) {
 
 
 router.post("/webhook/paystack", async (req, res) => {
+  console.log(req.body,'request.body');
   const event = req.body.event;
   const data = req.body.data;
   console.log(event,"event")
