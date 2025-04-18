@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 app.post("/webhook/paystack", async (req, res) => {
   console.log("Received webhook from Paystack:", req.body);
-  res.status(200);
+  res.sendStatus(200);
   // const event = req.body.event;
   // const data = req.body.data;
 
