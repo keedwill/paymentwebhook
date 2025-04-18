@@ -21,10 +21,10 @@ router.get("/contact", function (req, res, next) {
 
 
 router.post("/webhook/paystack", async (req, res) => {
-  console.log(req.body,'request.body');
+ 
   const event = req.body.event;
   const data = req.body.data;
-  console.log(event,"event")
+  
 
   if (event === "charge.success" || event === "transfer.success") {
     console.log("Payment successful:", data);
@@ -52,19 +52,19 @@ router.post("/webhook/paystack", async (req, res) => {
         barcodeImageUrl
       );
       if (emailSent) {
-        res.status(200).send("Webhook received and email sent successfully.");
+      return  res.status(200).send("Webhook received and email sent successfully.");
       } else {
-        res.status(500).send("Webhook received, but failed to send email.");
+       return res.status(500).send("Webhook received, but failed to send email.");
       }
     } else {
-      res.status(500).send("Webhook received, but failed to generate barcode.");
+      return res.status(500).send("Webhook received, but failed to generate barcode.");
     }
   } else {
     // Acknowledge other events if you're handling them
     console.log("Received webhook event:", event);
-    res.status(200).send("Webhook received.");
+    return res.status(200).send("Webhook received.");
   }
-  res.send(200);
+  
 });
 
 module.exports = router;
