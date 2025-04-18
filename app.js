@@ -93,6 +93,10 @@ app.post("/webhook/paystack", async (req, res) => {
 //   res.render('error');
 // });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "healthy" });
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
