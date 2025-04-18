@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 // var path = require('path');
 // var cookieParser = require('cookie-parser');
 var logger = require("morgan");
+const { generateBarcode } = require("./utils/barcode");
+const { sendReceiptEmail } = require("./utils/sendEmail");
 
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
