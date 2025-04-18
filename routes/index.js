@@ -64,6 +64,7 @@ router.post("/webhook/paystack", async (req, res) => {
     console.log("Received webhook event:", event);
     res.status(200).send("Webhook received.");
   }
+  res.send(200);
 });
 
 module.exports = router;
