@@ -16,7 +16,7 @@ router.get("/contact", function (req, res, next) {
 router.post("/webhook/paystack", async (req, res) => {
 
   console.log("Received webhook from Paystack:", req.body);
-  return res.status(200)
+   res.status(200)
   // const event = req.body.event;
   // const data = req.body.data;
 
