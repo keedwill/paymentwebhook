@@ -20,6 +20,7 @@ router.get("/contact", function (req, res, next) {
 router.post("/webhook/paystack", async (req, res) => {
   const event = req.body.event;
   const data = req.body.data;
+  console.log(event,"event")
 
   if (event === "charge.success" || event === "transfer.success") {
     console.log("Payment successful:", data);
