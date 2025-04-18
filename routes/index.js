@@ -1,32 +1,21 @@
-var express = require('express');
-const { generateBarcode } = require('../utils/barcode');
-const { sendReceiptEmail } = require('../utils/sendEmail');
+var express = require("express");
+const { generateBarcode } = require("../utils/barcode");
+const { sendReceiptEmail } = require("../utils/sendEmail");
 var router = express.Router();
 
-
-
 /* GET home page. */
-router.get('/', function(req, res, next) {
-
-
-  console.log('hello index ppage')
-  res.render('index', { title: 'Express' });
+router.get("/", function (req, res, next) {
+  console.log("hello index ppage");
+  res.render("index", { title: "Express" });
 });
 
 router.get("/contact", function (req, res, next) {
   res.render("contact", { title: "Contact" });
 });
 
-
-
-
 router.post("/webhook/paystack", async (req, res) => {
-
-  
- 
   const event = req.body.event;
   const data = req.body.data;
-  
 
   if (event === "charge.success" || event === "transfer.success") {
     console.log("Payment successful:", data);
@@ -40,7 +29,7 @@ router.post("/webhook/paystack", async (req, res) => {
       firstName: data.customer.first_name,
       lastName: data.customer.last_name,
       email: customerEmail,
-      currency:data.currency
+      currency: data.currency,
     };
 
     // Generate the barcode image URL
@@ -54,23 +43,24 @@ router.post("/webhook/paystack", async (req, res) => {
         barcodeImageUrl
       );
       if (emailSent) {
-      return  res.sendStatus(200).send("Webhook received and email sent successfully.");
+        return res
+          .status(200)
+          .send("Webhook received and email sent successfully.");
       } else {
-       return res
-         .sendStatus(500)
-         .send("Webhook received, but failed to send email.");
+        return res
+          .status(500)
+          .send("Webhook received, but failed to send email.");
       }
     } else {
       return res
-        .sendStatus(500)
+        .status(500)
         .send("Webhook received, but failed to generate barcode.");
     }
   } else {
     // Acknowledge other events if you're handling them
     console.log("Received webhook event:", event);
-    return res.sendStatus(200).send("Webhook received.");
+    return res.status(200).send("Webhook received.");
   }
-  
 });
 
 module.exports = router;
